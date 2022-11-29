@@ -1,0 +1,90 @@
+﻿@model Domain.Entities.Realty
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Realty</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <h6>Locator</h6>
+                <div class="form-group">
+                    <label asp-for="Locator.Name" class="control-label"></label>
+                    <input asp-for="Locator.Name" class="form-control" />
+                    <span asp-validation-for="Locator.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Locator.CPF" class="control-label"></label>
+                    <input asp-for="Locator.CPF" class="form-control" />
+                    <span asp-validation-for="Locator.CPF" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Locator.Telephone" class="control-label"></label>
+                    <input asp-for="Locator.Telephone" class="form-control" />
+                    <span asp-validation-for="Locator.Telephone" class="text-danger"></span>
+                </div>
+                <br />
+            </div>
+
+            <div class="form-group">
+                <h6>Address</h6>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Address.ZipCode" class="control-label"></label>
+                    <input asp-for="Address.ZipCode" class="form-control" />
+                    <span asp-validation-for="Address.ZipCode" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address.District" class="control-label"></label>
+                    <input asp-for="Address.District" class="form-control" />
+                    <span asp-validation-for="Address.District" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address.Number" class="control-label"></label>
+                    <input asp-for="Address.Number" class="form-control" />
+                    <span asp-validation-for="Address.Number" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address.Complement" class="control-label"></label>
+                    <input asp-for="Address.Complement" class="form-control" />
+                    <span asp-validation-for="Address.Complement" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address.PublicPlace" class="control-label"></label>
+                    <input asp-for="Address.PublicPlace" class="form-control" />
+                    <span asp-validation-for="Address.PublicPlace" class="text-danger"></span>
+                    <br />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h6>Additional Information</h6>
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+                <br />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
