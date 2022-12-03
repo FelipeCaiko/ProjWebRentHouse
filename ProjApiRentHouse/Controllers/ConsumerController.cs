@@ -6,7 +6,7 @@ namespace ProjApiRentHouse.Controllers;
 
 public class ConsumerController
 {
-    private readonly string _consumerPostRealtyRent = "https://localhost:7192/api/RealtyRents";
+    private readonly string _consumerPostRealtyRent = "https://localhost:7192/api/RealtyRents/";
 
     public async Task<bool> PostRealtyRentAsync(RealtyRent realtyRent)
     {

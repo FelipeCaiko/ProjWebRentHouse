@@ -11,4 +11,6 @@ public class RealtyRent
     public string Description { get; set; }
     [NotMapped]
     public virtual List<SelectListItem> Clients { get; set; }
+    [NotMapped]
+    public virtual List<SelectListItem> Realties { get; set; }
 }

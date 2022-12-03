@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Domain.Entities;
-using ProjWebRentHouse.Data;
 using ProjApiRentHouse.Controllers;
+using ProjWebRentHouse.Data;
 
 namespace ProjWebRentHouse.Controllers
 {
@@ -23,7 +19,8 @@ namespace ProjWebRentHouse.Controllers
         // GET: RealtyRents
         public async Task<IActionResult> Index()
         {
-            return View(await _context.RealtyRent.ToListAsync());
+            var lst = await _context.RealtyRent.Include(c => c.Client).Include(r => r.Realty).ToListAsync();
+            return View(lst);
         }
 
         // GET: RealtyRents/Details/5
@@ -47,7 +44,23 @@ namespace ProjWebRentHouse.Controllers
         // GET: RealtyRents/Create
         public IActionResult Create()
         {
-            return View();
+            var realtyRent = new RealtyRent();
+
+            var clients = _context.Client.ToList();
+            var realties = _context.Realty.ToList();
+
+            realtyRent.Clients = new List<SelectListItem>();
+            realtyRent.Realties = new List<SelectListItem>();
+
+            foreach (var cli in clients)
+            {
+                realtyRent.Clients.Add(new SelectListItem { Text = cli.Name, Value = cli.Id.ToString() });
+            }
+            foreach (var rea in realties)
+            {
+                realtyRent.Realties.Add(new SelectListItem { Text = rea.Description, Value = rea.Id.ToString() });
+            }
+            return View(realtyRent);
         }
 
         // POST: RealtyRents/Create
@@ -57,6 +70,14 @@ namespace ProjWebRentHouse.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Description")] RealtyRent realtyRent)
         {
+            int _clientId = int.Parse(Request.Form["Client"].ToString());
+            var client = _context.Client.FirstOrDefault(m => m.Id == _clientId);
+            realtyRent.Client = client;
+
+            int _realtyId = int.Parse(Request.Form["Realty"].ToString());
+            var realty = _context.Realty.FirstOrDefault(m => m.Id == _realtyId);
+            realtyRent.Realty = realty;
+
             if (ModelState.IsValid)
             {
                 await new ConsumerController().PostRealtyRentAsync(realtyRent);

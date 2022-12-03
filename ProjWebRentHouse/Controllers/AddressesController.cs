@@ -26,21 +26,21 @@ namespace ProjWebRentHouse.Controllers
         }
 
         // GET: Addresses/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<Address> Details(int? id)
         {
             if (id == null || _context.Address == null)
             {
-                return NotFound();
+                return null;
             }
 
             var address = await _context.Address
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (address == null)
             {
-                return NotFound();
+                return null;
             }
 
-            return View(address);
+            return address;
         }
 
         // GET: Addresses/Create
